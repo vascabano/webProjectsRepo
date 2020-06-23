@@ -88,6 +88,8 @@ var mcdoSample = new Sample('Mcdo', 20, 30);
 
 
 
++= is used to add content to an existing variable
+
 
 
 

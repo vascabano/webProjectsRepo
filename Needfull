@@ -1,0 +1,100 @@
+Need to know?
+
+ 1. what are the parameters inside util.search()?
+ $scope.test = util.search(_ITEM_STOCK_NUMBER_LIST, $scope.itemStockNumber, "品番コード", true);
+
+
+ tips = use goto definition to fine source of function
+
+ 2.  what does getItemStockNumberListUri mean?
+ angular.module("app")
+  .controller("MainCtrl", function(
+    $scope, $http, $location, 
+    $mdSidenav,
+    getEmployeeListUri,
+    getCustomerListUri,
+    getVendorListUri,
+    getItemStockNumberListUri,
+    getTypeListUri,
+    getItemTypeListUri,
+    getTaxRateListUri,
+    getForExListUri,
+    getProductionFlowCodeListUri
+
+
+   3. flowcode problem possible in server
+   ** フローコード */
+app_express.get("/get_production_flow_code_list", function (req, res) {
+  new sql.ConnectionPool(config).connect().then( pool => {
+    var request = pool.request();
+    return request.execute("sp_getProductionFlowCodeList");
+  }).then(result => {
+    var recordset = result.recordset;
+    if (recordset && recordset.length <= 0) {
+      result.output = {
+        title: "エラー",
+        content: "該当データはありません。"
+      };
+    }
+    console.log(result);
+    res.send(result);
+    sql.close();
+  }).catch(err => {
+    console.log(err);
+    res.send(err);
+    sql.close();
+  });
+});
+
+
+<!--or in sql-->
+
+USE [生産管理システム]
+GO
+
+/****** Object:  StoredProcedure [dbo].[sp_getProductionFlowCodeList]    Script Date: 05/07/2020 14:40:44 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author     : <Author,,Virgilio Ascabano Jr>
+-- Create date: <Create Date,,2020-05-07>
+-- Update date: <Update Date,,>
+--              2020-05-07
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[sp_getProductionFlowCodeList]
+AS
+GRANT EXECUTE ON [dbo].[sp_getProductionFlowCodeList] TO hayaki
+
+SELECT
+	フローコード
+FROM [dbo].[MT_1Z009_工程フローコード]
+ORDER BY フローコード ASC
+
+
+GO
+
+<!--or in mainController-->
+
+ $scope.getProductionFlowCodeList = function() {
+      // フローコード
+      $http.get(getProductionFlowCodeListUri, {
+        params: {}
+      }).then(function success(result) {
+        var data = result.data;
+        if (data.recordset && data.recordset.length > 0) {
+          getProductionFlowCodeListUri = data.recordset;
+        }
+      }, function error(error) {
+        console.log(error);
+        $scope.error = error;
+      });
+    }
+
+
+
+

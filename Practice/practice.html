@@ -1,0 +1,82 @@
+<div id="inputShipmentInspection" class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_content">
+        <h3 >出荷検査＆完成品処理入力＿プローブ</h3>
+        <div class="ln_solid"></div>
+        <form name="inputShipmentInspection">
+          <div layout-gt-lg="row">
+            <md-input-container class="md-block">
+              <label>品番コード</label>
+              <input required="" name="partNo" ng-model="partNo" md-maxlength="10">
+              <div ng-messages="inputShipmentInspection.partNo.$error">
+                <div ng-message="required">品番コードは必須。</div>
+                <div ng-message="md-maxlength">最大値は10文字までです。</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div layout-gt-lg="col">
+            <md-input-container class="md-block">
+              <label>品番名</label>
+              <input required="" name="partNoName" ng-model="partNoName" md-maxlength="10">
+              <div ng-messages="inputShipmentInspection.partNoName.$error">
+                <div ng-message="required">品番名は必須。</div>
+                <div ng-message="md-maxlength">最大値は10文字までです。</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div layout-gt-lg="row">
+            <md-input-container class="md-block">
+              <label>製造ロット番号</label>
+              <input required="" name="productionLotNo" ng-model="productionLotNo" md-maxlength="11">
+              <div ng-messages="inputShipmentInspection.productionLotNo.$error">
+                <div ng-message="required">製造ロット番号は必須。</div>
+                <div ng-message="md-maxlength">最大値は11文字までです。</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div layout-gt-lg="row">
+            <md-input-container class="md-block">
+              <label>フローコード</label>
+              <input required="" name="flowCode" ng-model="flowCode" md-maxlength="4">
+              <div ng-messages="inputShipmentInspection.flowCode.$error">
+                <div ng-message="required">フローコードは必須。</div>
+                <div ng-message="md-maxlength">最大値は4文字までです。</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div layout-gt-lg="row">
+            <md-input-container class="md-block">
+              <label>数量</label>
+              <input required="" name="quantity" ng-model="quantity">
+              <div ng-messages="inputShipmentInspection.quantity.$error">
+                <div ng-message="required">数量 is numeric only.</div>
+                <div ng-message="md-maxlength">最大値は4文字までです。</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div layout-gt-lg="row">
+            <md-input-container class="md-block">
+              <label>社員コード</label>
+              <input required="" name="employeeCode" ng-model="employeeCode" md-maxlength="5">
+              <div ng-messages="inputShipmentInspection.employeeCode.$error">
+                <div ng-message="required">社員コードは必須。</div>
+                <div ng-message="md-maxlength">最大値は5文字までです。</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div class="ln_solid"></div>
+          <div class="form-group">
+            <div>
+              <md-button class="md-raised md-primary" type="submit" 
+                ng-disabled="!areValidEntries() || !btnConfirmInputEnabled"
+                ng-click="confirmInput()">入力確認</md-button>
+              <md-button class="md-raised md-default"
+                ng-click="init()">訂正</md-button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
